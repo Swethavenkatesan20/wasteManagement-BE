@@ -28,7 +28,7 @@ const app=express();
 
 //enable cors request
 app.use(cors({
-    origin: 'https://waste-management-fe-jws1.vercel.app/',  // allow all origin
+    origin: 'https://waste-management-fe.vercel.app/',  // allow all origin
     credentials: true
 }));
 
