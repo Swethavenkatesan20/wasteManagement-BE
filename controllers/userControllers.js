@@ -8,7 +8,7 @@ const userController={
     register:async (request,response)=>{
         try{
             //get user inputs from request body
-            const {email,password,name,location,role}=request.body;
+            const {email,password,name,location,role,proof,proofId}=request.body;
 
 
             // Check if the role is provided and it's "admin"
@@ -30,6 +30,8 @@ const userController={
                 passwordHash,
                 name,
                 location,
+                proof,
+                proofId,
                 role: isAdmin ? 'admin' : 'user'    // if the role is not admin by default it will add role as
             })
 
