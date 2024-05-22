@@ -31,7 +31,7 @@ const app=express();
 
 //enable cors request
 app.use(cors({
-    origin: 'https://waste-management-fe.vercel.app',  // allow all origin
+    origin: 'http://localhost:5173',  // allow all origin
     credentials: true
 }));
 
