@@ -5,7 +5,10 @@ const cors=require('cors')
 //import user router
 const userRouter = require('./routes/userRoutes');
 
-
+//importing waste route
+const wasteRouter = require('./routes/wasteRoutes'); 
+//import review router
+const reviewRouter = require('./routes/reviewRoutes'); 
 
 
 
@@ -48,7 +51,10 @@ app.use(express.json());  //in postman i have sent data in json it will convert 
 //it is middleware "use" keyword
 app.use('/api/users',userRouter);
 
-
+//waste route
+app.use('/api/waste', wasteRouter);  
+//review route
+app.use('/api/reviews', reviewRouter); 
 
 
 
