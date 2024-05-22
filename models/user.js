@@ -14,7 +14,9 @@ const userSchema=new mongoose.Schema({
         enum:['user','admin'],
         default:'user'
         
-    }
+    },
+    proof:String,
+    proofId:String
 })
 
 module.exports=mongoose.model('User',userSchema,'users');
