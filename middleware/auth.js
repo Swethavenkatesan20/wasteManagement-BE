@@ -1,35 +1,34 @@
-const jwt=require('jsonwebtoken')  //to verify token we need jwt to importing here
-const config=require('../utils/config') //to get secret
-const User=require('../models/user')
+const jwt = require('jsonwebtoken');  // Import JWT
+const config = require('../utils/config');  // Import config
+const User = require('../models/user');  // Import User model
 
+const auth = {
+    verifyToken: (request, response, next) => {
+        try {
+            // Get token from request cookies
+            const token = request.cookies.token;
 
-const auth={
-    verifyToken:(request,response,next)=>{
-        try{
-
-            // get token from request headers
-            const token=request.cookies.token;
-            
-            //if token not exist, return error
-            if(!token){
-                return response.status(401).json({message:'unauthorised'})
+            // If token does not exist, return an error
+            if (!token) {
+                return response.status(401).json({ message: 'Unauthorized: Token not found' });
             }
-            //verify token
-            try{
-                const decodedToken=jwt.verify(token,config.JWT_SECRET)
 
-                //set userid in request object
-                request.userId=decodedToken.id;
+            // Verify token
+            try {
+                const decodedToken = jwt.verify(token, config.JWT_SECRET);
 
-                //call the next middleware
+                // Set userId in request object
+                request.userId = decodedToken.id;
+
+                // Call the next middleware
                 next();
-
-            }catch{
-                response.status(401).json({message:'invalid token'})
+            } catch (error) {
+                console.error('Token verification failed:', error.message);
+                return response.status(401).json({ message: 'Unauthorized: Invalid token' });
             }
-        }
-        catch(error){
-            response.status(500).json({message:error.message})
+        } catch (error) {
+            console.error('Middleware error:', error.message);
+            return response.status(500).json({ message: 'Internal Server Error' });
         }
     },
     isAdmin: async (request, response, next) => {
@@ -53,8 +52,5 @@ const auth={
     }
 };
 
-    
-}
-
-//export auth object
-module.exports=auth;
+// Export auth object
+module.exports = auth;
